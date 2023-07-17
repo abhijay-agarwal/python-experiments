@@ -1,3 +1,5 @@
+#!/usr/local/bin python3
+
 import time
 import random
 
@@ -11,21 +13,22 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 port = 465  # For SSL
 smtp_server = "smtp.gmail.com"
-sender_email = "aboniet99@gmail.com"  # Enter your address
-receiver_email = "aboniet99@gmail.com"  # Enter receiver address
+sender_email = "aboniet99@gmail.com"
+my_email = "abhijay.a@gmail.com"
+palleti_email = 'pvpalleti@gmail.com'
 password = 'edpcyhwabfrxzoqq'
 
-def send_email(price):
+def send_email(price, email):
     em = EmailMessage()
     em['From'] = sender_email
-    em['To'] = receiver_email
+    em['To'] = email
     em['Subject'] = price
     em.set_content('https://tix.axs.com/hlocGwAAAADKRn%2bjAQAAAABm%2fv%2f%2f%2fwD%2f%2f%2f%2f%2fC0ZvcmVzdEhpbGxzAP%2f%2f%2f%2f%2f%2f%2f%2f%2f%2f/shop/search?skin=foresthills&tags=&cpch=&cpdate=&cpcn=&cpsrc=&intoff=&cid=&utm_source=&utm_medium=&utm_campaign=&utm_term=&utm_content=&aff=&clickref=&q=e25e5f32-bcf4-459a-bdf0-b068a98659e1&p=658943a9-9f93-4dcb-99b0-bf9bca909dc3&ts=1687936608&c=axs&e=45484301427492166&rt=Safetynet&h=17b216d42ebbf611a531efeb3f2852b2')
 
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
         server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, em.as_string())
+        server.sendmail(sender_email, email, em.as_string())
 
 def parse_price_string(price_string):
     # Remove the dollar sign and decimal part from the string
@@ -57,24 +60,25 @@ action = ActionChains(browser)
 action.double_click(on_element = ga_bowl_button)
 action.perform()
 
-time.sleep(10)
+time.sleep(5)
 price_text = browser.find_element(By.XPATH, '//*[@id="GA_SELECTOR"]/div/div/div[2]/div[1]/div/div/div[2]/div[2]/div/div[1]/div[1]/span/span/span')
 print(price_text.text)
 
 price_int = parse_price_string(price_text.text)
 
 # if price_int < 250:
-send_email(price_text.text)
+send_email(price_text.text, my_email)
+send_email(price_text.text, palleti_email)
 
 plus_button = browser.find_element(By.XPATH, '//*[@id="GA_SELECTOR"]/div/div/div[2]/div[1]/div/div/div[2]/div[2]/div/div[1]/div[2]/div/button[2]')
 plus_button.click()
 
-time.sleep(random.randint(3, 7))
+time.sleep(random.randint(1, 5))
 
 continue_button = browser.find_element(By.CLASS_NAME, 'ga-selector-continue')
 continue_button.click()
 
-time.sleep(random.randint(2, 6))
+time.sleep(random.randint(1, 5))
 
 checkout_button = browser.find_element(By.CLASS_NAME, 'pre-cart-summary__label')
 checkout_button.click()
@@ -84,7 +88,7 @@ time.sleep(random.randint(5, 10))
 axn_mobile_id = browser.find_element(By.XPATH, '//*[@id="main"]/div/div/div[1]/div/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div/div/div/div[1]/div')
 axn_mobile_id.click()
 
-time.sleep(random.randint(3, 7))
+time.sleep(random.randint(1, 5))
 
 order_summary_button = browser.find_element(By.ID, 'order-summary__next__btn--delivery')
 order_summary_button.click()
