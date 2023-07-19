@@ -40,10 +40,11 @@ def parse_price_string(price_string):
 
 options = wd.ChromeOptions()
 options.add_experimental_option("detach", True)
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
 browser = wd.Chrome(options=options)
 browser.get('https://tix.axs.com/hlocGwAAAADKRn%2bjAQAAAABm%2fv%2f%2f%2fwD%2f%2f%2f%2f%2fC0ZvcmVzdEhpbGxzAP%2f%2f%2f%2f%2f%2f%2f%2f%2f%2f/shop/search?skin=foresthills&tags=&cpch=&cpdate=&cpcn=&cpsrc=&intoff=&cid=&utm_source=&utm_medium=&utm_campaign=&utm_term=&utm_content=&aff=&clickref=&q=e25e5f32-bcf4-459a-bdf0-b068a98659e1&p=658943a9-9f93-4dcb-99b0-bf9bca909dc3&ts=1687936608&c=axs&e=45484301427492166&rt=Safetynet&h=17b216d42ebbf611a531efeb3f2852b2')
 
-time.sleep(30)
+time.sleep(10)
 accept_cookies_button = browser.find_element(By.ID, 'onetrust-accept-btn-handler')
 accept_cookies_button.click()
 
@@ -51,41 +52,41 @@ accept_cookies_button.click()
 # general_click = browser.find_element(By.XPATH,'/html/body')
 # general_click.click()
 
-time.sleep(20)
+time.sleep(40)
 ga_bowl_button = browser.find_element(By.XPATH, '//*[@id="main"]/div/div/div[1]/div/div/div/div/div/div/div[2]/div/div[3]/div/div[2]/div')
 action = ActionChains(browser)
 action.double_click(on_element = ga_bowl_button)
 action.perform()
 
-time.sleep(10)
+time.sleep(5)
 price_text = browser.find_element(By.XPATH, '//*[@id="GA_SELECTOR"]/div/div/div[2]/div[1]/div/div/div[2]/div[2]/div/div[1]/div[1]/span/span/span')
 print(price_text.text)
 
 price_int = parse_price_string(price_text.text)
 
-# if price_int < 250:
-send_email(price_text.text)
+if price_int < 300:
+    send_email(price_text.text)
 
-plus_button = browser.find_element(By.XPATH, '//*[@id="GA_SELECTOR"]/div/div/div[2]/div[1]/div/div/div[2]/div[2]/div/div[1]/div[2]/div/button[2]')
-plus_button.click()
+    plus_button = browser.find_element(By.XPATH, '//*[@id="GA_SELECTOR"]/div/div/div[2]/div[1]/div/div/div[2]/div[2]/div/div[1]/div[2]/div/button[2]')
+    plus_button.click()
 
-time.sleep(random.randint(3, 7))
+    time.sleep(random.randint(3, 7))
 
-continue_button = browser.find_element(By.CLASS_NAME, 'ga-selector-continue')
-continue_button.click()
+    continue_button = browser.find_element(By.CLASS_NAME, 'ga-selector-continue')
+    continue_button.click()
 
-time.sleep(random.randint(2, 6))
+    time.sleep(random.randint(2, 6))
 
-checkout_button = browser.find_element(By.CLASS_NAME, 'pre-cart-summary__label')
-checkout_button.click()
+    checkout_button = browser.find_element(By.CLASS_NAME, 'pre-cart-summary__label')
+    checkout_button.click()
 
-time.sleep(random.randint(5, 10))
+    time.sleep(random.randint(5, 10))
 
-axn_mobile_id = browser.find_element(By.XPATH, '//*[@id="main"]/div/div/div[1]/div/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div/div/div/div[1]/div')
-axn_mobile_id.click()
+    axn_mobile_id = browser.find_element(By.XPATH, '//*[@id="main"]/div/div/div[1]/div/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div/div/div/div[1]/div')
+    axn_mobile_id.click()
 
-time.sleep(random.randint(3, 7))
+    time.sleep(random.randint(3, 7))
 
-order_summary_button = browser.find_element(By.ID, 'order-summary__next__btn--delivery')
-order_summary_button.click()
+    order_summary_button = browser.find_element(By.ID, 'order-summary__next__btn--delivery')
+    order_summary_button.click()
     
